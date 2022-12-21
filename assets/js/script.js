@@ -5,7 +5,7 @@ function getWeather() {
   // DECLARING VARIBALE CITYRESULT, SETTING IT TO DOCUMENT OBJECT WITH ID CITYRESULT
   var cityResult = document.getElementById("cityResult");
   // ASSIGNING VARIBALE CITYINPUT VALUE TO CITYRESULT INNERHTML
-  cityResult.innerHTML = "Search Results: " + cityInput.value;
+  cityResult.innerHTML = "Search Results: '" + cityInput.value+ "'";
 
 // FETCH CALL TO API WITH QUERY CITYINPUT VALUE
 fetch('https://api.openweathermap.org/data/2.5/forecast?q='+cityInput.value+'&appid=32ba0bfed592484379e51106cef3f204')
@@ -22,7 +22,7 @@ fetch('https://api.openweathermap.org/data/2.5/forecast?q='+cityInput.value+'&ap
   // FOR LOOP RUNS 5 TIMES
   for(i = 0; i<5; i++){
       //GETS DATA FROM TEMP_MAX NODE, CONVERTS TO F AND CONCATS STRING WITH DEGREE SYMBOL AND MIN:, ASSIGNS TO VARIABLE DAY#MAX, SETS TO DOCUMENT OBJECT ID, LOOPS 5X
-      document.getElementById("day" + (i+1) + "Max").innerHTML = "Max: " + Number(1.8*(data.list[i].main.max - 273)+32).toFixed(2) + "°";
+      document.getElementById("day" + (i+1) + "Max").innerHTML = "Max: " + Number(1.8*(data.list[i].main.temp_max - 273)+32).toFixed(2) + "°";
   }
   //------------------------------------------------------------
 
@@ -42,26 +42,27 @@ fetch('https://api.openweathermap.org/data/2.5/forecast?q='+cityInput.value+'&ap
 // DECLARE FUNCTION DEFAULTSCREEN
 function DefaultScreen(){
   // ASSIGNING MIAMI AS DEFAULT VALUE OF ELEMENT WITH ID CITYINPUT
- document.getElementById("cityInput").defaultValue = "Miami";
+  document.getElementById("cityInput").defaultValue = "Miami";
   // CALL GETWEATHER FUNCTION
   getWeather();
 }
 
 
 // GETTING AND UPDATE TEXT 
-var days = new Date();
+var d = new Date();
 var weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday",];
 
 // DECLARE FUNCTION CHECKDAY WITH PARAMENTER OF DAY
 function CheckDay(day){
-  // CONDITIONAL 
-  if(day + DynamicsCompressorNode.getDay() > 6){
-    // IF DAY
-      return day + days.getDay() - 7;
+  // CONDITIONAL STATEMENT 
+  if(day + d.getDay() > 6){
+    // IF DAY IS GREATER THAN 6, MINUS BY 7, NOT SURE IF THIS WILL EVER HAPPEN SINCE THE INDEX IS FROM 0-6
+      return day + d.getDay() - 7;
   }
+  // CONDITIONAL STATEMENT
   else{
-      //
-      return day + days.getDay();
+      //RETURNS CURRENT DAY AS DAY
+      return day + d.getDay();
   }
 }
   // FOR LOOP RUNS 5 TIMES
