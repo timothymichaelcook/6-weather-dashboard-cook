@@ -1,59 +1,155 @@
+<!-- DOCTYPE HMTL -->
 <!DOCTYPE html>
+<!-- TAG: HTML -->
 <html lang="en">
+  <!-- TAG: HEAD -->
   <head>
+    <!-- TAG: META -->
     <meta charset="UTF-8">
+    <!-- TAG: META -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- TAG: META -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- TAG: LINK -->
     <link href="./assets/css/reset.css" rel="stylesheet">
-    <link href="./assets/css/styles.css" rel="stylesheet">
-    <title>Weather</title>
+    <!-- TAG: LINK -->
+    <link href="./assets/css/style.css" rel="stylesheet">
+    <!-- TAG: TITLE -->
+    <title>5 Day Weather Forecast</title>
   </head>
-  <body>
-    <center>
-      <h1 id="Para1">5 Days Weather Forecast</h1>
-      <p id="inputContainer">City: <input type="text" id="cityInput"></p>
+  <!-- TAG: BODY -->
+  <body onload="DefaultScreen()">
+    <!-- SECTION -->
+    <!-- TAG: DIV --> 
+    <!--CLASS: CONTAINERHEADER ID: N/A -->
+    <div class="containerHeader">
+      <!-- TAG: H1 -->
+      <!--CLASS: CONTAINERHEADER -->
+      <h1>5 Day Weather Forecast</h1>
+      <!-- TAG: P -->
+      <!--CLASS: CONTAINERHEADER, ID INPUTCONTAINER -->
+      <p id="inputContainer">Search City: 
+        <!-- TAG: INPUT -->
+        <!--CLASS: CONTAINERHEADER ID INPUTCONTAINER, CITYINPUT -->
+        <input type="text" id="cityInput">
+      </p>
+      <!-- TAG: BUTTON -->
+      <!--CLASS: CONTAINERHEADER -->
       <button type="button" onclick="getInfo()">Click Me</button>
-      <h2 id="cityName">New York</h2>
-    </center>
-    <div id="weatherContainer">
+      <!-- H2 TAG -->
+      <!--CLASS: CONTAINERHEADER ID: CITYNAME -->
+      <h2 id="cityName"></h2>
+    </div>
+
+    <!-- TAG: DIV -->
+    <!-- CLASS: N/A ID: WEATHERCONTAINER-->
+    <div id="weatherContainer1">
+      <!-- TAG: DIV -->
+      <!-- CLASS: N/A ID: WEATHERCONTAINER, ICONSCONTAINER-->
       <div id="iconsContainer">
-        <div id="icons">
-          <p class="weather" id="day1"></p>
-          <div class="image"><img src="dots.png" class="imgClass" id="img1" alt=""></div>
-          <p class="minValues" id="day1Min">Loading...</p>
-          <p class="maxValues" id="day1Max">Loading...</p>
+        <!-- TAG: DIV -->
+        <!-- CLASS: ICONS ID: WEATHERCONTAINER, ICONSCONTAINER-->
+        <div class="icons">
+          <!-- TAG: P -->
+          <!-- CLASS: ICONS, WEATHER ~ ID: WEATHERCONTAINER, ICONSCONTAINER, DAY1-->
+          <p class="dayOfWeek" id="day1"></p>
+          <!-- TAG: DIV -->
+          <!-- CLASS: ICONS, IMAGE ~ ID: WEATHERCONTAINER, ICONSCONTAINER -->
+          <div class="image">
+            <!-- TAG: IMG -->
+            <!-- CLASS: ICONS, IMAGE, IMGCLASS ~ ID: WEATHERCONTAINER, ICONSCONTAINER, IMG1 -->
+            <img src="" class="imgClass" id="img1" alt="">
+          </div>
+          <!-- TAG: P -->
+          <!-- CLASS: ICONS, MINVALUES ~ ID: WEATHERCONTAINER, ICONSCONTAINER, DAY1MIN -->
+          <p class="minValues" id="day1Min"></p>
+          <!-- TAG: P -->
+          <!-- CLASS: ICONS, MAXVALUES ~ ID: WEATHERCONTAINER, ICONSCONTAINER, DAY1MAX -->
+          <p class="maxValues" id="day1Max"></p>
         </div>
-        <div id="icons">
-          <p class="weather" id="day2"></p>
-          <div class="image"><img src="dots.png" class="imgClass" id="img2" alt=""></div>
-          <p class="minValues" id="day2Min">Loading...</p>
-          <p class="maxValues" id="day2Max">Loading...</p>
+        <!-- TAG: DIV -->
+        <!-- CLASS: ICONS ID: WEATHERCONTAINER, ICONSCONTAINER-->
+        <div class="icons">
+          <!-- TAG: P -->
+          <!-- CLASS: ICONS, WEATHER ~ ID: WEATHERCONTAINER, ICONSCONTAINER, DAY2-->
+          <p class="dayOfWeek" id="day2"></p>
+          <!-- TAG: DIV -->
+          <!-- CLASS: ICONS, IMAGE ~ ID: WEATHERCONTAINER, ICONSCONTAINER -->
+          <div class="image">
+            <!-- TAG: IMG -->
+            <!-- CLASS: ICONS, IMAGE, IMGCLASS ~ ID: WEATHERCONTAINER, ICONSCONTAINER, IMG2 -->
+            <img src="" class="imgClass" id="img2" alt="">
+          </div>
+          <!-- TAG: P -->
+          <!-- CLASS: ICONS, MINVALUES ~ ID: WEATHERCONTAINER, ICONSCONTAINER, DAY2MIN -->
+          <p class="minValues" id="day2Min"></p>
+          <!-- TAG: P -->
+          <!-- CLASS: ICONS, MAXVALUES ~ ID: WEATHERCONTAINER, ICONSCONTAINER, DAY2MIX -->
+          <p class="maxValues" id="day2Max"></p>
         </div>
-        <div id="icons">
-          <p class="weather" id="day3"></p>
-          <div class="image"><img src="dots.png" class="imgClass" id="img3" alt=""></div>
-          <p class="minValues" id="day3Min">Loading...</p>
-          <p class="maxValues" id="day3Max">Loading...</p>
+        <!-- TAG: DIV -->
+        <!-- CLASS: ICONS ID: WEATHERCONTAINER, ICONSCONTAINER-->
+        <div class="icons">
+          <!-- TAG: P -->
+          <!-- CLASS: ICONS, WEATHER ~ ID: WEATHERCONTAINER, ICONSCONTAINER, DAY2-->
+          <p class="dayOfWeek" id="day3"></p>
+          <!-- TAG: DIV -->
+          <!-- CLASS: ICONS, IMAGE ~ ID: WEATHERCONTAINER, ICONSCONTAINER -->
+          <div class="image">
+            <!-- TAG: IMG -->
+            <!-- CLASS: ICONS, IMAGE, IMGCLASS ~ ID: WEATHERCONTAINER, ICONSCONTAINER, IMG3 -->
+            <img src="" class="imgClass" id="img3" alt="">
+          </div>
+          <!-- TAG: P -->
+          <!-- CLASS: ICONS, MINVALUES ~ ID: WEATHERCONTAINER, ICONSCONTAINER, DAY3MIN -->
+          <p class="minValues" id="day3Min"></p>
+          <!-- TAG: P -->
+          <!-- CLASS: ICONS, MAXVALUES ~ ID: WEATHERCONTAINER, ICONSCONTAINER, DAY3MAX -->
+          <p class="maxValues" id="day3Max"></p>
         </div>
-        <div id="icons">
-          <p class="weather" id="day4"></p>
-          <div class="image"><img src=dots.png" class="imgClass" id="img4" alt=""></div>
-          <p class="minValues" id="day4Min">Loading...</p>
-          <p class="maxValues" id="day4Max">Loading...</p>
+        <!-- TAG: DIV -->
+        <!-- CLASS: ICONS ID: WEATHERCONTAINER, ICONSCONTAINER-->
+        <div class="icons">
+          <!-- TAG: P -->
+          <!-- CLASS: ICONS, WEATHER ~ ID: WEATHERCONTAINER, ICONSCONTAINER, DAY4-->
+          <p class="dayOfWeek" id="day4"></p>
+          <!-- TAG: DIV -->
+          <!-- CLASS: ICONS, IMAGE ~ ID: WEATHERCONTAINER, ICONSCONTAINER -->
+          <div class="image">
+            <!-- TAG: IMG -->
+            <!-- CLASS: ICONS, IMAGE, IMGCLASS ~ ID: WEATHERCONTAINER, ICONSCONTAINER, IMG4 -->
+            <img src="" class="imgClass" id="img4" alt="">
+          </div>
+          <!-- TAG: P -->
+          <!-- CLASS: ICONS, MINVALUES ~ ID: WEATHERCONTAINER, ICONSCONTAINER, DAY4MIN -->
+          <p class="minValues" id="day4Min"></p>
+          <!-- TAG: P -->
+          <!-- CLASS: ICONS, MAXVALUES ~ ID: WEATHERCONTAINER, ICONSCONTAINER, DAY4MAX -->
+          <p class="maxValues" id="day4Max"></p>
         </div>
-        <div id="icons">
-          <p class="weather" id="day5"></p>
-          <div class="image"><img src="dots.png" class="imgClass" id="img5" alt=""></div>
-          <p class="minValues" id="day5Min">Loading...</p>
-          <p class="maxValues" id="day5Max">Loading...</p>
-          <p>test</p>
+        <!-- TAG: DIV -->
+        <!-- CLASS: ICONS ID: WEATHERCONTAINER, ICONSCONTAINER-->
+        <div class="icons">
+          <!-- TAG: P -->
+          <!-- CLASS: ICONS, WEATHER ~ ID: WEATHERCONTAINER, ICONSCONTAINER, DAY5-->
+          <p class="dayOfWeek" id="day5"></p>
+          <!-- TAG: DIV -->
+          <!-- CLASS: ICONS, IMAGE ~ ID: WEATHERCONTAINER, ICONSCONTAINER -->
+          <div class="image">
+            <!-- TAG: IMG -->
+            <!-- CLASS: ICONS, IMAGE, IMGCLASS ~ ID: WEATHERCONTAINER, ICONSCONTAINER, IMG5 -->
+            <img src="" class="imgClass" id="img5" alt="">
+          </div>
+          <!-- TAG: P -->
+          <!-- CLASS: ICONS, MINVALUES ~ ID: WEATHERCONTAINER, ICONSCONTAINER, DAY5MIN -->
+          <p class="minValues" id="day5Min"></p>
+           <!-- TAG: P -->
+          <!-- CLASS: ICONS, MAXVALUES ~ ID: WEATHERCONTAINER, ICONSCONTAINER, DAY5MAX -->
+          <p class="maxValues" id="day5Max"></p>
         </div>
       </div>
     </div>
-
-
-
+    <!-- TAG: SCRIPT -->
     <script src="./assets/js/script.js"></script>
   </body>
-
 </html>

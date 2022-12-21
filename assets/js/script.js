@@ -1,8 +1,11 @@
-function GetInfo() {
-
+// DECLARING FUNCTION GETWEATHER
+function getWeather() {
+  // DECLARING VARIBALE, SETTING IT TO DOCUMENT OBJECT WITH ID CITYINPUT
   var newName = document.getElementById("cityInput");
+  // DECLARING VARIBALE, SETTING IT TO DOCUMENT OBJECT WITH ID CITYNAME
   var cityName = document.getElementById("cityName");
-  cityName.innerHTML = "--"+newName.value+"--";
+  // ASSIGNING VARIBALE, SETTING IT TO DOCUMENT OBJECT WITH ID CITYNAME
+  cityName.innerHTML = "Search Results: " + newName.value;
 
 fetch('https://api.openweathermap.org/data/2.5/forecast?q='+newName.value+'&appid=32ba0bfed592484379e51106cef3f204')
 .then(response => response.json())
@@ -31,12 +34,12 @@ fetch('https://api.openweathermap.org/data/2.5/forecast?q='+newName.value+'&appi
 
 })
 
-.catch(err => alert("Something Went Wrong: Try Checking Your Internet Coneciton"))
+.catch(err => alert("Please Try Again!"))
 }
 
 function DefaultScreen(){
-  document.getElementById("cityInput").defaultValue = "London";
-  GetInfo();
+  document.getElementById("cityInput").defaultValue = "Miami";
+  getWeather();
 }
 
 

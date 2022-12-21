@@ -1,0 +1,15 @@
+HTML COMMENTS:
+
+
+<!-- TAG: N/A -->
+<!-- CLASS: N/A ~ ID: N/A-->
+
+
+CSS COMMENTS:
+
+/* 
+SELECTOR:
+PURPOSE: 
+*/
+
+JAVASCRIPT COMMENTS:
