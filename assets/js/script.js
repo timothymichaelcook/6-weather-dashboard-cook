@@ -7,6 +7,9 @@ function getWeather() {
   // ASSIGNING VARIBALE CITYINPUT VALUE TO CITYRESULT INNERHTML
   cityResult.innerHTML = "Search Results: '" + cityInput.value+ "'";
 
+
+
+
 // FETCH CALL TO API WITH QUERY CITYINPUT VALUE
 fetch('https://api.openweathermap.org/data/2.5/forecast?q='+cityInput.value+'&appid=32ba0bfed592484379e51106cef3f204')
 //CONVERT API RESPONSE TO JSON FORMAT
@@ -52,6 +55,10 @@ function DefaultScreen(){
 var d = new Date();
 var weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday",];
 
+localStorage.setItem("d", d);
+
+
+
 // DECLARE FUNCTION CHECKDAY WITH PARAMENTER OF DAY
 function CheckDay(day){
   // CONDITIONAL STATEMENT 
@@ -63,8 +70,12 @@ function CheckDay(day){
   else{
       //RETURNS CURRENT DAY AS DAY
       return day + d.getDay();
+      
+      
   }
+  
 }
+localStorage.setItem(weekDay);
   // FOR LOOP RUNS 5 TIMES
   for(i = 0; i<5; i++){
     // WEEKDAY ARRAY ITEM IS ASSIGNED TO THE ELEMENT ID OF DAY APPENDED WTIH THE DAY #, PRODUCING AN ARRAY OF 5 DAYS IN ORDER
