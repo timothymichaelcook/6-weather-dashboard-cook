@@ -12,9 +12,9 @@ This webpage will take a user's input in the form of text, make a call to the op
 ## User Story
 
 ```
-- AS AN an adventure guide 
-- I WANT to generate weather reports
-- SO THAT I can schedule safe trips
+- AS A traveler
+- I WANT to see the weather outlook for multiple cities
+- SO THAT I can plan a trip accordingly
 ```
 
 ## Installation
