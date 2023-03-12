@@ -107,6 +107,7 @@ function searchFunction() {
 
       let fiveDayCard = $('<div>');
       fiveDayCard.attr('class', 'card fiveDayCard bg-primary');
+
       fiveDayForecast.append(fiveDayCard);
 
 
@@ -138,34 +139,38 @@ function searchFunction() {
       let humidityEl = $('<p>');
       humidityEl.text(fiveDayHumidity);
       fiveDayCard.append(humidityEl);
+    }
+  };
 
-$.ajax({
-  url: queryURLforecast,
-  method: 'GET'
-}).then(function(response){
-  $('#5dayforecast').empty();
-  fiveDayForecast(response);
-})
+  $.ajax({
+    url: queryURLforecast,
+    method: 'GET'
+  }).then(function(response){
+    $('#5dayforecast').empty();
+    fiveDayForecast(response);
+  })
 
-function storedCities(){
-  localStorage.setItem('cities', JSON.stringify(cities));
+  function storedCities(){
+    localStorage.setItem('cities', JSON.stringify(cities));
+  }
+  
   var city = $('city-input').val().trim();
 
-  if (city === ''){
-    return;
-  }
-
-  for (let i = 0; i < cities.length; i++) {
-    if (city === cities[i]){
-      alert('You have already searched ' + cities[i] )
+    if (city === ''){
       return;
     }
+
+    for (let i = 0; i < cities.length; i++) {
+      if (city === cities[i]){
+        alert('You have already searched ' + cities[i] )
+        return;
+      }
+    }
+    cities.push(city);
+    $('#city-input').val('');
+    storedCities();
+    renderButtons();
   }
-  cities.push(city);
-  $('#city-input').val('');
-  storedCities();
-  renderButtons();
-}
 
 };
 
