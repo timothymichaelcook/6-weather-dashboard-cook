@@ -68,7 +68,7 @@ function searchFunction() {
     let iconurl = 'https://openweathermap.org/img/w/' + iconcode + '.png';
     $('#wicon').attr('src', iconurl);
 
-    let FTemp = (response.main.temp - 273) * 1.80 + 32;
+    let FTemp = (response.main.temp - 273.15) * 1.8 + 32;
     $('#temperature').text(Ftemp.toFixed(1) + '°F');
     $('#humidity').text(response.main.humidity + '%');
     $('#windspeed').text(response.wind.speed + 'MPH');
@@ -116,7 +116,31 @@ function searchFunction() {
       h5El.text(displayDate);
 
       fiveDayCard.append(h5El);
-      
+
+      let iconcode = response.list[i].dt;
+      let iconurl = 'https://openweathermap.org/img/w/' + iconcode + '.png';
+      let weathericon = $('img');
+      weathericon.attr('src', iconurl);
+      let divEl = $('<div>');
+      divEl.append(weathericon);
+      fiveDayCard.append(divEl);
+
+
+
+      let Ftemp = (response.list[i].main.temp - 273.15) * 1.8 + 32;
+      let fivedaytemperature = 'Temp;' + Ftemp.toFixed(1) + '°F'
+      let tempEl = $('<p>');
+      tempEl.text(fivedaytemperature);
+      fiveDayCard.append(tempEl);
+
+      let fiveDayHumidity = 'Humidity' + response.list[i].main.humidity + '%';
+      let humidityEl = $('<p>');
+      humidityEl.text(fiveDayHumidity);
+      fiveDayCard.append(humidityEl);
+
+  
+    
+
   }
 }
 /* 
