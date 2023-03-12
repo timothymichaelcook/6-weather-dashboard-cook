@@ -77,6 +77,32 @@ function searchFunction() {
 
   };
 
+  $.ajax({
+    url: queryURLcurrent,
+    method: 'GET',
+  }).then(function(response){
+    currentDayWeather(response);
+    var currentUVindex = 'https://api.openweathermap.org/data/2.5/uvi?lat=' + response.coord.lat + '&lon=' + response.coord.lon + '&appid' + APIKey;
+
+    $.ajax({
+      url: currentUVindex,
+      method: 'GET'
+    }).then(function(uvresponse){
+      $('#uvindex').text(uvresponse.value);
+      if (uvresponse.value < 3) {
+        $('#uvindex').attr('class', 'favorable');
+      } else if (uvresponse.value > 5) {
+        $('#uvindex').attr('class', 'severe');
+      } else {
+        $('#uvindex').attr('class', 'moderate')
+      };
+      
+    });
+  });
+
+  function fiveDayForecast (response) {
+    
+  }
 }
 /* 
 EVENT LISTENER SECTION
