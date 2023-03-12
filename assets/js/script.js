@@ -1,19 +1,22 @@
-// DECLARE VARIABLES SECTION
+/* 
+DECLARE VARIABLES SECTION
+*/
+
 // Declare cities variable, assign to empty array
 var cities = [];
 // Declare cityName variable, assign to empty string
 var cityName = '';
 
+/*
+DECLARE FUNCTIONS SECTION
+*/
 
 
 
+/* 
+EVENT LISTENER SECTION
+*/
 
-// DECLARE FUNCTIONS SECTION
-
-
-
-
-// EVENT LISTENER SECTION
 // Event listener on search button, waiting for click event from user
 $('#searchBtn').on('click', function(event) {
   // .preventDefault method prevents page from reloading
