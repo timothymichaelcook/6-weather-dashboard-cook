@@ -9,8 +9,26 @@ var cityName = '';
 /*
 FUNCTIONS SECTION
 */
+//
+function renderButtons() {
+  //
+  $('#buttons-view').empty();
+  //
+  for (var i = 0; i < cities.length; i++) {
+    //
+    var btn = $('<button>');
+  //
+  btn.addClass('city btn btn-light');
+  btn.attr('data-name', cities[i]);
+  btn.text(cities[i]);
+  $('#buttons-view').prepend(btn);
+  }
 
+  //
+  $('.city').on('click', function(event) {
 
+  });
+}
 // Call init function
 init();
 //Declare function
