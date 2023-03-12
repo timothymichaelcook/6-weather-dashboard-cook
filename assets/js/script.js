@@ -1,6 +1,7 @@
 /* 
 VARIABLES SECTION
 */
+
 // Declare cities variable, assign to empty array
 var cities = [];
 // Declare cityName variable, assign to empty string
@@ -9,6 +10,7 @@ var cityName = '';
 /*
 FUNCTIONS SECTION
 */
+
 // Declare function renderButtons
 function renderButtons() {
   //
@@ -17,11 +19,11 @@ function renderButtons() {
   for (var i = 0; i < cities.length; i++) {
     //
     var btn = $('<button>');
-  //
-  btn.addClass('city btn btn-light');
-  btn.attr('data-name', cities[i]);
-  btn.text(cities[i]);
-  $('#buttons-view').prepend(btn);
+    //
+    btn.addClass('city btn btn-light');
+    btn.attr('data-name', cities[i]);
+    btn.text(cities[i]);
+    $('#buttons-view').prepend(btn);
   }
 
   //
@@ -55,8 +57,8 @@ function init() {
 //Declare function searchFunction
 function searchFunction() {
   var APIKey = '847ffadac8f9704104c4582fe8936ffd';
-  var queryURLcurrent = '' + cityName + '&appid=' + APIKey;
-  var queryURLforecast = '' + cityName + '&appid=' + APIKey;
+  var queryURLcurrent = 'https://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&appid=' + APIKey;
+  var queryURLforecast = 'https://api.openweathermap.org/data/2.5/forecast?q=' + cityName + '&appid=' + APIKey;
 
   function currentDayWeather (response) {
     let date = response.dt;
@@ -75,7 +77,8 @@ function searchFunction() {
 
 
 
-  };
+  }
+};
 
   $.ajax({
     url: queryURLcurrent,
@@ -175,7 +178,7 @@ $('#searchBtn').on('click', function(event) {
   // .preventDefault method prevents page from reloading on click event
   event.preventDefault();
   //
-  cityName = $('#city-input').value();
+  cityName = $('#city-input').val();
   // Call function searchFunction
   searchFunction();
   // Conditional statement checking if cityName variable is equal in data and type of user input
