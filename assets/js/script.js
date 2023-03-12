@@ -3,198 +3,237 @@ VARIABLES SECTION
 */
 
 // Declare cities variable, assign to empty array
-var cities = [];
+var cities = [];   
 // Declare cityName variable, assign to empty string
-var cityName = '';
+var cityName = "";
 
-/*
-FUNCTIONS SECTION
-*/
-
-// Declare function renderButtons
+// Declare function renderButtons as function declaration
 function renderButtons() {
-  //
-  $('#buttons-view').empty();
-  //
-  for (var i = 0; i < cities.length; i++) {
-    //
-    var btn = $('<button>');
-    //
-    btn.addClass('city btn btn-light');
-    btn.attr('data-name', cities[i]);
-    btn.text(cities[i]);
-    $('#buttons-view').prepend(btn);
-  }
+    
+    // Clear button-view HTML Id 
+    $("#buttons-view").empty();
 
-  //
-  $('.city').on('click', function(event) {
-     // .preventDefault method prevents page from reloading on click event
-    event.preventDefault();
-    cityName = $(this).text();
-    searchFunction();
-  });
+    // For loop (iteration), creates new button element for searched cities
+    for (var i=0; i<cities.length; i++) {
+        // Declare btn variable, assign to button tags in HTML
+        var btn = $("<button>");
+        btn.addClass("city btn btn-light");
+        btn.attr("data-name", cities[i]);
+        btn.text(cities[i]);
+        $("#buttons-view").prepend(btn);
+    }
+
+    $(".city").on("click", function(event) {
+        // Prevents browser window from reloading when button is clicked
+        event.preventDefault();
+        // Declare cityName variable, assign to user input
+        cityName = $(this).text();
+        // Call searchFunction function
+        searchFunction(); 
+            
+    });
+
 }
 
 // Call init function
-init();
-//Declare function init
-function init() {
-  //
-  let storedCities = JSON.parse(localStorage.getItem('cities'));
-  //
-  if (storedCities !== null) {
-  //
-    cities = storedCities;
-  }
-  //
-  renderButtons();
-  //
-  cityName = localStorage.getItem('lastcity');
-  // Call searchFunction function
-  searchFunction();
+initializeApp();
+
+// Declare initializeApp function
+function initializeApp() {
+    // Retrieve stored cities from localStorage, parse JSON string
+    let storedCities = JSON.parse(localStorage.getItem("cities"));
+    // Update cities array if cities value is not null
+    if (storedCities !== null) {
+        cities = storedCities;
+      }
+    
+    // Render cities to the DOM
+    renderButtons();
+    cityName = localStorage.getItem("lastcity");
+    
+    // Call searchFunction function
+    searchFunction();
+
 }
 
-//Declare function searchFunction
+// Declare search function, no parameters needed
 function searchFunction() {
-  var APIKey = '847ffadac8f9704104c4582fe8936ffd';
-  var queryURLcurrent = 'https://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&appid=' + APIKey;
-  var queryURLforecast = 'https://api.openweathermap.org/data/2.5/forecast?q=' + cityName + '&appid=' + APIKey;
 
-  function currentDayWeather (response) {
-    let date = response.dt;
-    let newDate = new Date(date * 1000);
-    let displayDate =newDate.toLocaleDateString();
+    // Declare URL variables, generate apikey at openweathermap.org
+    var APIKey ="b4be0b7d750fe772ec24b0cccb796b0d";
+    var queryURLcurrent = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + APIKey;
+    var queryURLforecast = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&appid=" + APIKey;
+    
+    //Declare currentDayWeather function, passing response as a parameter
+    function currentDayWeather (response) {
 
-    $('#cityname').text(response.name + ' for ' + displayDate);
-    let iconcode = response.weather[0].icon;
-    let iconurl = 'https://openweathermap.org/img/w/' + iconcode + '.png';
-    $('#wicon').attr('src', iconurl);
+        //  Declare date, newDate and displayDate variables
+        let date = response.dt 
+        let newDate = new Date(date * 1000);
+        let displayDate = newDate.toLocaleDateString();
+       
+        // Display city name, date and weather icon via jQuery
+        let iconcode = response.weather[0].icon;
+        let iconurl = "https://openweathermap.org/img/w/" + iconcode + ".png";
+        $("#cityname").text(response.name + "(" + displayDate + ")");
+        $('#wicon').attr('src', iconurl);
 
-    let FTemp = (response.main.temp - 273.15) * 1.8 + 32;
-    $('#temperature').text(Ftemp.toFixed(1) + '°F');
-    $('#humidity').text(response.main.humidity + '%');
-    $('#windspeed').text(response.wind.speed + 'MPH');
+        // Display temperature, humidity, windspeed via jQuery
+        let Ftemp = (response.main.temp - 273.15) * 1.80 + 32; 
+        $("#temperature").text(Ftemp.toFixed(1) + "°F");
+        $("#humidity").text(response.main.humidity + "%");
+        $("#windspeed").text(response.wind.speed + "MPH");
 
-  };
+    };
 
-
-  $.ajax({
-    url: queryURLcurrent,
-    method: 'GET',
-  }).then(function(response){
-    currentDayWeather(response);
-    var currentUVindex = 'https://api.openweathermap.org/data/2.5/uvi?lat=' + response.coord.lat + '&lon=' + response.coord.lon + '&appid' + APIKey;
+    // API call for current day weather
 
     $.ajax({
-      url: currentUVindex,
-      method: 'GET'
-    }).then(function(uvresponse){
-      $('#uvindex').text(uvresponse.value);
-      if (uvresponse.value < 3) {
-        $('#uvindex').attr('class', 'favorable');
-      } else if (uvresponse.value > 5) {
-        $('#uvindex').attr('class', 'severe');
-      } else {
-        $('#uvindex').attr('class', 'moderate')
-      };
-      
+        url: queryURLcurrent,
+        method: "GET"
+    }).then(function(response){
+
+        currentDayWeather(response);
+       
+        // Display UV index
+        var currentUVindex = "https://api.openweathermap.org/data/2.5/uvi?lat=" + response.coord.lat + "&lon=" + response.coord.lon + "&appid=" +APIKey;
+
+
+        // API call for current UV index inside current day weather
+        $.ajax({
+            url: currentUVindex,
+            method: "GET"
+        }).then(function(uvresponse){
+
+            $("#uvindex").text(uvresponse.value);
+            if (uvresponse.value < 3 ) {
+                $("#uvindex").attr("class", "favorable");
+            } else if ( uvresponse.value > 5) {
+                $("#uvindex").attr("class", "severe");
+            } else {
+                $("#uvindex").attr("class", "moderate");
+            };
+        });
     });
-  });
+    
+    function fiveDayForecast (response) {  
 
-  function fiveDayForecast (response) {
-    for (var i=0; i < response.list.length; i +=8) {
-      let fiveDayForecast = $('#5dayforecast');
+        for (var i=0; i < response.list.length ; i+=8) {
+    
+            let fiveDayForecast = $("#5dayforecast");
+    
+            // Create card inside the loop
+            let fiveDayCard = $("<div>");
+            fiveDayCard.attr("class", "card fiveDayCard bg-primary");
 
-      let fiveDayCard = $('<div>');
-      fiveDayCard.attr('class', 'card fiveDayCard bg-primary');
+            fiveDayForecast.append(fiveDayCard);
+            
+            //  Convert time from unixtime GMT to MM/DD/YYYY
+            let date = response.list[i].dt;
+            let newDate = new Date(date * 1000);
+            let displayDate = newDate.toLocaleDateString();
+            let h5El = $("<h5>");
+            h5El.text(displayDate);
+            // divEl.append(h5El);
+            fiveDayCard.append(h5El);
 
-      fiveDayForecast.append(fiveDayCard);
+             // Get weather icon
+             let iconcode = response.list[i].weather[0].icon;
+             let iconurl = "https://openweathermap.org/img/w/" + iconcode + ".png";
+             let weathericon = $("<img>");
+             weathericon.attr('src', iconurl);
+             let divEl = $("<div>");
+             divEl.append(weathericon);
+             fiveDayCard.append(divEl);
+             
+    
+            // Get temperature
+            let Ftemp = (response.list[i].main.temp - 273.15) * 1.80 + 32; 
+            let fivedaytemperature = "Temp:" + Ftemp.toFixed(1) + "°F";
+            let tempEl = $("<p>");
+            tempEl.text(fivedaytemperature);
+            fiveDayCard.append(tempEl);
 
+            // Get humidty
+            let fiveDayHumidity = "Humidity:" + response.list[i].main.humidity + "%";
+            let humidityEl = $("<p>");
+            humidityEl.text(fiveDayHumidity);
+            fiveDayCard.append(humidityEl);           
+        } 
+    };
 
-      let date = response.list[i].dt;
-      let newDate = new Date(date * 10000);
-      let displayDate = newDate.toLocaleDateString();
-      let h5El = $('<h5>');
-      h5El.text(displayDate);
+    // API call for 5 day forecast
 
-      fiveDayCard.append(h5El);
-
-      let iconcode = response.list[i].dt;
-      let iconurl = 'https://openweathermap.org/img/w/' + iconcode + '.png';
-      let weathericon = $('img');
-      weathericon.attr('src', iconurl);
-      let divEl = $('<div>');
-      divEl.append(weathericon);
-      fiveDayCard.append(divEl);
-
-
-
-      let Ftemp = (response.list[i].main.temp - 273.15) * 1.8 + 32;
-      let fivedaytemperature = 'Temp;' + Ftemp.toFixed(1) + '°F'
-      let tempEl = $('<p>');
-      tempEl.text(fivedaytemperature);
-      fiveDayCard.append(tempEl);
-
-      let fiveDayHumidity = 'Humidity' + response.list[i].main.humidity + '%';
-      let humidityEl = $('<p>');
-      humidityEl.text(fiveDayHumidity);
-      fiveDayCard.append(humidityEl);
+    $.ajax({
+        url: queryURLforecast,
+        method: "GET"
+    }).then(function(response){
+       
+        // call fiveDayForecast function
+        $("#5dayforecast").empty();
+        fiveDayForecast(response);     
+    })
+    
+    function storedCities () {
+        // Stringify and set "cities" key in localStorage to cities array
+        localStorage.setItem("cities", JSON.stringify(cities));
     }
-  };
-
-  $.ajax({
-    url: queryURLforecast,
-    method: 'GET'
-  }).then(function(response){
-    $('#5dayforecast').empty();
-    fiveDayForecast(response);
-  })
-
-  function storedCities(){
-    localStorage.setItem('cities', JSON.stringify(cities));
-  }
-  
-  var city = $('city-input').val().trim();
-
-    if (city === ''){
-      return;
+    
+    var city = $("#city-input").val().trim();
+     
+    // Return from function early if submitted city-input is blank
+    if (city === "" ) {
+        return;        
     }
-
+        
+    // Make sure no search cities are overlapped
     for (let i = 0; i < cities.length; i++) {
-      if (city === cities[i]){
-        alert('You have already searched ' + cities[i] )
-        return;
-      }
+        if (city === cities[i]) {
+            alert ("You have already searched" + cities[i] )
+            return;
+        } 
     }
+
+
+    // Add new city button to cities array, clear the input
     cities.push(city);
-    $('#city-input').val('');
+    $("#city-input").val("");   
     storedCities();
-    renderButtons();
-  }
+    renderButtons(); 
+        
 
-};
+}
 
- 
-/* 
-EVENT LISTENER SECTION
-*/
-// Event listener on search button, waiting for click event from user
-$('#searchBtn').on('click', function(event) {
-  // .preventDefault method prevents page from reloading on click event
-  event.preventDefault();
-  //
-  cityName = $('#city-input').val();
-  // Call function searchFunction
-  searchFunction();
-  // Conditional statement checking if cityName variable is equal in data and type of user input
-  if (cityName === '') {  
-    return;
-  }
 
-  localStorage.setItem('lastcity', cityName);
-  // Console log cityName variable
-  console.log(cityName);
-  // Console log cities variable
-  console.log(cities);
+
+$("#searchBtn").on("click", function(event) {
+    event.preventDefault();
+    // grab the text from the city search input
+    cityName = $("#city-input").val();
+    searchFunction(); 
+    if (cityName === "") {
+        return;
+    }
+     
+    localStorage.setItem("lastcity", cityName);
+    console.log(cityName);
+    console.log(cities);
+            
 });
 
+
+
+
+
+
+
+
+
+
+// five day forecast
+// B. for loop for the city buttons 
+    // local storage get item parse
+    // local storage
+    // array for the city
+
+// activity 6-9
