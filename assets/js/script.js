@@ -9,7 +9,7 @@ var cityName = '';
 /*
 FUNCTIONS SECTION
 */
-//
+// Declare function renderButtons
 function renderButtons() {
   //
   $('#buttons-view').empty();
@@ -35,7 +35,7 @@ function renderButtons() {
 
 // Call init function
 init();
-//Declare function
+//Declare function init
 function init() {
   //
   let storedCities = JSON.parse(localStorage.getItem('cities'));
@@ -52,6 +52,22 @@ function init() {
   searchFunction();
 }
 
+//Declare function searchFunction
+function searchFunction() {
+  var APIKey = '847ffadac8f9704104c4582fe8936ffd';
+  var queryURLcurrent = '' + cityName + '&appid=' + APIKey;
+  var queryURLforecast = '' + cityName + '&appid=' + APIKey;
+
+  function currentDayWeather (response) {
+    let date = response.dt;
+    let newDate = new Date(date * 1000);
+    let displayDate =newDate.toLocaleDateString();
+
+    
+
+  }
+
+}
 /* 
 EVENT LISTENER SECTION
 */
