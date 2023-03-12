@@ -63,9 +63,19 @@ function searchFunction() {
     let newDate = new Date(date * 1000);
     let displayDate =newDate.toLocaleDateString();
 
-    
+    $('#cityname').text(response.name + ' for ' + displayDate);
+    let iconcode = response.weather[0].icon;
+    let iconurl = 'https://openweathermap.org/img/w/' + iconcode + '.png';
+    $('#wicon').attr('src', iconurl);
 
-  }
+    let FTemp = (response.main.temp - 273) * 1.80 + 32;
+    $('#temperature').text(Ftemp.toFixed(1) + '°F');
+    $('#humidity').text(response.main.humidity + '%');
+    $('#windspeed').text(response.wind.speed + 'MPH');
+
+
+
+  };
 
 }
 /* 
