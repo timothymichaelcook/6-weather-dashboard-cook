@@ -26,9 +26,13 @@ function renderButtons() {
 
   //
   $('.city').on('click', function(event) {
-
+     // .preventDefault method prevents page from reloading on click event
+    event.preventDefault();
+    cityName = $(this).text();
+    searchFunction();
   });
 }
+
 // Call init function
 init();
 //Declare function
@@ -53,7 +57,7 @@ EVENT LISTENER SECTION
 */
 // Event listener on search button, waiting for click event from user
 $('#searchBtn').on('click', function(event) {
-  // .preventDefault method prevents page from reloading
+  // .preventDefault method prevents page from reloading on click event
   event.preventDefault();
   //
   cityName = $('#city-input').value();
