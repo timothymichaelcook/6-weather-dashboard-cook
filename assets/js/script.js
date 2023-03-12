@@ -75,10 +75,8 @@ function searchFunction() {
     $('#humidity').text(response.main.humidity + '%');
     $('#windspeed').text(response.wind.speed + 'MPH');
 
+  };
 
-
-  }
-};
 
   $.ajax({
     url: queryURLcurrent,
@@ -168,6 +166,8 @@ function storedCities(){
   storedCities();
   renderButtons();
 }
+
+};
 
  
 /* 
