@@ -87,7 +87,6 @@ function searchFunction() {
     };
 
     // API call for current day weather
-
     $.ajax({
         url: queryURLcurrent,
         method: "GET"
@@ -99,7 +98,7 @@ function searchFunction() {
         var currentUVindex = "https://api.openweathermap.org/data/2.5/uvi?lat=" + response.coord.lat + "&lon=" + response.coord.lon + "&appid=" +APIKey;
 
 
-        // API call for current UV index inside current day weather
+        // API call for current UVindex inside current day weather
         $.ajax({
             url: currentUVindex,
             method: "GET"
@@ -116,8 +115,10 @@ function searchFunction() {
         });
     });
     
+    // Declare fiveDayForecast function, pass response as parameter
     function fiveDayForecast (response) {  
 
+        // Iteration
         for (var i=0; i < response.list.length ; i+=8) {
     
             let fiveDayForecast = $("#5dayforecast");
@@ -128,7 +129,7 @@ function searchFunction() {
 
             fiveDayForecast.append(fiveDayCard);
             
-            //  Convert time from unixtime GMT to MM/DD/YYYY
+            //  Convert time from unixtime standard GMT to MM/DD/YYYY
             let date = response.list[i].dt;
             let newDate = new Date(date * 1000);
             let displayDate = newDate.toLocaleDateString();
@@ -137,7 +138,7 @@ function searchFunction() {
             // divEl.append(h5El);
             fiveDayCard.append(h5El);
 
-             // Get weather icon
+             // Declare weather icon variables
              let iconcode = response.list[i].weather[0].icon;
              let iconurl = "https://openweathermap.org/img/w/" + iconcode + ".png";
              let weathericon = $("<img>");
@@ -147,14 +148,14 @@ function searchFunction() {
              fiveDayCard.append(divEl);
              
     
-            // Get temperature
+            // Declare temperature variable
             let Ftemp = (response.list[i].main.temp - 273.15) * 1.80 + 32; 
             let fivedaytemperature = "Temp:" + Ftemp.toFixed(1) + "°F";
             let tempEl = $("<p>");
             tempEl.text(fivedaytemperature);
             fiveDayCard.append(tempEl);
 
-            // Get humidty
+            // Declare humidity variable
             let fiveDayHumidity = "Humidity:" + response.list[i].main.humidity + "%";
             let humidityEl = $("<p>");
             humidityEl.text(fiveDayHumidity);
@@ -163,17 +164,17 @@ function searchFunction() {
     };
 
     // API call for 5 day forecast
-
     $.ajax({
         url: queryURLforecast,
         method: "GET"
     }).then(function(response){
        
-        // call fiveDayForecast function
+        // Call fiveDayForecast function passing response as argument
         $("#5dayforecast").empty();
         fiveDayForecast(response);     
     })
     
+    // Declare storedCities function
     function storedCities () {
         // Stringify and set "cities" key in localStorage to cities array
         localStorage.setItem("cities", JSON.stringify(cities));
@@ -181,19 +182,18 @@ function searchFunction() {
     
     var city = $("#city-input").val().trim();
      
-    // Return from function early if submitted city-input is blank
+    // Return function (end) if user input is blank
     if (city === "" ) {
         return;        
     }
         
-    // Make sure no search cities are overlapped
+    // Iteration seeing if city has been searched by user
     for (let i = 0; i < cities.length; i++) {
         if (city === cities[i]) {
             alert ("You have already searched" + cities[i] )
             return;
         } 
     }
-
 
     // Add new city button to cities array, clear the input
     cities.push(city);
@@ -205,18 +205,23 @@ function searchFunction() {
 }
 
 
-
+// Event listener using jQuery on id searchBtn when clicked, runs anonymous function with event passed as argument
 $("#searchBtn").on("click", function(event) {
+    // Prevents page from reloading when button is clicked
     event.preventDefault();
     // grab the text from the city search input
     cityName = $("#city-input").val();
     searchFunction(); 
+    // Return function (end) if cityName variable is blank
     if (cityName === "") {
         return;
     }
-     
+    
+    // Set lastcity element in local storage to cityName variable
     localStorage.setItem("lastcity", cityName);
+    // Console log cityName variable
     console.log(cityName);
+    // Console log cityName variable
     console.log(cities);
             
 });
