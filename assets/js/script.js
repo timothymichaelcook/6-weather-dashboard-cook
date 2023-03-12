@@ -1,22 +1,38 @@
 /* 
-DECLARE VARIABLES SECTION
+VARIABLES SECTION
 */
-
 // Declare cities variable, assign to empty array
 var cities = [];
 // Declare cityName variable, assign to empty string
 var cityName = '';
 
 /*
-DECLARE FUNCTIONS SECTION
+FUNCTIONS SECTION
 */
 
 
+// Call init function
+init();
+//Declare function
+function init() {
+  //
+  let storedCities = JSON.parse(localStorage.getItem('cities'));
+  //
+  if (storedCities !== null) {
+  //
+    cities = storedCities;
+  }
+  //
+  renderButtons();
+  //
+  cityName = localStorage.getItem('lastcity');
+  // Call searchFunction function
+  searchFunction();
+}
 
 /* 
 EVENT LISTENER SECTION
 */
-
 // Event listener on search button, waiting for click event from user
 $('#searchBtn').on('click', function(event) {
   // .preventDefault method prevents page from reloading
