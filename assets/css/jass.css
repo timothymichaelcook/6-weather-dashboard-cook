@@ -1,0 +1,53 @@
+.dashboard{
+  background-color: #313131;
+  color: white;
+  display: block;
+  text-align: center;   
+  margin-bottom: 5px; 
+}
+
+.search {
+  /* background-color: #eeeeee; */
+  float: left;
+  height: 500px;
+}
+
+.searchtitle {
+  color: #313131;
+}
+
+
+#wicon {
+  display: inline;
+}
+
+/* UV index 0-2 */
+.favorable {
+  background-color: #40a72d;
+  padding: 6px;
+  color: white;
+  border-radius: 5px;
+}
+
+/* UV index 3-5 */
+.moderate {
+  background-color: yellow;
+  padding: 6px;
+  color: black;
+  border-radius: 5px;
+
+}
+
+/* UV index 5 above */
+.severe {
+  background-color: red;
+  padding: 6px;
+  color: white;
+  border-radius: 5px;
+}
+
+.fiveDayCard {
+  color: white;
+  padding: 5px;
+  margin: 6px;
+}

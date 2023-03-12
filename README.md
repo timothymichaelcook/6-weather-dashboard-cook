@@ -36,7 +36,7 @@ MIT License
 
 ## Screenshots
 
-![Project Screenshot](./assets/images/screenshot1.png)
+![Project Screenshot](./screenshots/screenshot_1.png)
 
 
 ## Contact
