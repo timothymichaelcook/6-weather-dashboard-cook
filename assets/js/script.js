@@ -101,7 +101,22 @@ function searchFunction() {
   });
 
   function fiveDayForecast (response) {
-    
+    for (var i=0; i < response.list.length; i +=8) {
+      let fiveDayForecast = $('#5dayforecast');
+
+      let fiveDayCard = $('<div>');
+      fiveDayCard.attr('class', 'card fiveDayCard bg-primary');
+      fiveDayForecast.append(fiveDayCard);
+
+
+      let date = response.list[i].dt;
+      let newDate = new Date(date * 10000);
+      let displayDate = newDate.toLocaleDateString();
+      let h5El = $('<h5>');
+      h5El.text(displayDate);
+
+      fiveDayCard.append(h5El);
+      
   }
 }
 /* 
